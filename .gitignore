@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.vercel/
+out/
+coverage/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# TypeScript and editor output
+*.tsbuildinfo
+.DS_Store
+Thumbs.db

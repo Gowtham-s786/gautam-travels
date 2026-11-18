@@ -1,0 +1,3 @@
+import { CheckCircle2 } from "lucide-react";
+export const metadata = { title: "Payment processing" };
+export default function PaymentProcessingPage() { return <main className="pt-28"><section className="mx-auto max-w-xl px-5 pb-24 text-center"><div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-saffron/20 text-forest"><CheckCircle2 className="h-8 w-8" /></div><h1 className="mt-8 font-display text-5xl tracking-[-.05em]">Checking your payment.</h1><p className="mt-5 text-sm leading-7 text-ink/60">Please keep this page open while we verify the payment and secure your seats.</p></section></main>; }

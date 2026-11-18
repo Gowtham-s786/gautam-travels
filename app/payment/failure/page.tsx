@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { AlertCircle } from "lucide-react";
+export const metadata = { title: "Payment failed" };
+export default function PaymentFailurePage() { return <main className="pt-28"><section className="mx-auto max-w-xl px-5 pb-24 text-center"><div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-clay/15 text-clay"><AlertCircle className="h-8 w-8" /></div><h1 className="mt-8 font-display text-5xl tracking-[-.05em]">Payment did not go through.</h1><p className="mt-5 text-sm leading-7 text-ink/60">Your payment was not confirmed. Any temporary seat hold will be released automatically when it expires.</p><Link href="/trips" className="mt-8 inline-flex rounded-full bg-forest px-5 py-3 text-sm font-semibold text-white">Try another trip ↗</Link></section></main>; }

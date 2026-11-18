@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { BookingInformation } from "@/components/account-data";
+export const metadata = { title: "Booking details" };
+export default async function BookingDetailsPage({ params }: { params: Promise<{ reference: string }> }) { const { reference } = await params; return <main className="pt-28"><section className="mx-auto max-w-3xl px-5 pb-24 lg:px-8"><Link href="/account/bookings" className="inline-flex items-center gap-2 text-sm font-semibold text-ink/55 hover:text-forest"><ArrowLeft className="h-4 w-4" /> My bookings</Link><div className="mt-8 rounded-[2rem] bg-forest p-8 text-white md:p-10"><p className="eyebrow text-saffron">Booking details</p><h1 className="mt-5 font-display text-5xl tracking-[-.05em]">Your trip is taking shape.</h1><p className="mt-5 text-sm leading-7 text-white/65">Reference <span className="font-semibold text-white">{reference}</span></p></div><BookingInformation reference={reference} /></section></main>; }
