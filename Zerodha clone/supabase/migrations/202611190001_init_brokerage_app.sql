@@ -20,6 +20,7 @@ create table if not exists public.watchlists (
   created_at timestamptz not null default now(),
   unique(user_id, name)
 );
+create index if not exists watchlists_user_created_idx on public.watchlists (user_id, created_at);
 alter table public.watchlists enable row level security;
 create policy "Users manage own watchlists" on public.watchlists for all to authenticated using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
 
@@ -32,6 +33,7 @@ create table if not exists public.watchlist_items (
   created_at timestamptz not null default now(),
   unique(watchlist_id, instrument_key)
 );
+create index if not exists watchlist_items_watchlist_sort_idx on public.watchlist_items (watchlist_id, sort_order);
 alter table public.watchlist_items enable row level security;
 create policy "Users manage items in own watchlists" on public.watchlist_items for all to authenticated
 using (exists (select 1 from public.watchlists w where w.id = watchlist_id and w.user_id = (select auth.uid())))

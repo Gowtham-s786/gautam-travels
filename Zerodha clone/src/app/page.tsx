@@ -10,13 +10,16 @@ const holdings = [
   { symbol: "TCS", name: "Tata Consultancy Services", qty: "8", avg: "3,918.00", price: "3,884.25", change: "−0.86%", up: false },
 ];
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const market = await getMarketSnapshot();
+  const today = new Intl.DateTimeFormat("en-IN", { weekday: "long", month: "long", day: "2-digit", year: "numeric", timeZone: "Asia/Kolkata" }).format(new Date()).toUpperCase();
   return <main className="app-shell">
     <header className="topbar">
       <a className="brand" href="#"><span className="brand-mark">N</span><span>northstar<span className="brand-dot">.</span></span></a>
       <div className="top-links"><a className="active" href="#overview">Overview</a><a href="#holdings">Holdings</a><a href="#orders">Orders</a><a href="#funds">Funds</a></div>
-      <div className="top-actions"><button className="icon-button" aria-label="Help"><CircleHelp size={18}/></button><button className="icon-button" aria-label="Notifications"><Bell size={18}/></button><button className="profile-chip"><span className="avatar">GS</span><span>Gowtham</span><ChevronDown size={14}/></button></div>
+      <div className="top-actions"><button className="icon-button" aria-label="Help"><CircleHelp size={18}/></button><button className="icon-button" aria-label="Notifications"><Bell size={18}/></button><a className="profile-chip" href="/dashboard"><span className="avatar">NS</span><span>My account</span><ChevronDown size={14}/></a></div>
     </header>
     <div className="demo-strip"><ShieldCheck size={15}/> <span><b>Paper trading preview</b> · Quotes and orders are simulated. No real brokerage account or money is connected.</span><a href="#connectors">Integration status</a></div>
     <section className="market-strip" aria-label="Market indices">
@@ -24,7 +27,7 @@ export default async function Home() {
       <span className="market-time">Market snapshot · Simulated</span>
     </section>
     <div className="content-wrap">
-      <div className="welcome-row"><div><p className="eyebrow">WEDNESDAY, NOVEMBER 19, 2026</p><h1>Good morning, Gowtham <span>✦</span></h1><p className="subheading">A calm view of your investing day.</p></div><button className="outline-button"><Command size={15}/> Quick actions <kbd>⌘ K</kbd></button></div>
+      <div className="welcome-row"><div><p className="eyebrow">{today}</p><h1>Your investing overview <span>✦</span></h1><p className="subheading">A calm view of your investing day.</p></div><button className="outline-button"><Command size={15}/> Quick actions <kbd>⌘ K</kbd></button></div>
       <section className="metric-grid" id="overview">
         <article className="metric-card balance-card"><div className="metric-heading"><span>Portfolio value</span><span className="metric-icon green"><Wallet size={17}/></span></div><div className="metric-value">₹ 8,42,615<span>.40</span></div><div className="metric-foot"><span className="positive"><ArrowUpRight size={14}/> ₹ 12,486.20 (1.50%)</span><span>Today’s return</span></div><div className="sparkline"><svg viewBox="0 0 420 62" preserveAspectRatio="none"><path d="M0 48 C22 48 24 38 42 41 S62 50 82 34 S105 29 122 34 S144 20 161 28 S181 36 199 19 S224 31 244 26 S260 9 280 17 S303 34 322 21 S345 19 364 11 S389 21 420 5" fill="none" stroke="#078a67" strokeWidth="2.3"/><path d="M0 48 C22 48 24 38 42 41 S62 50 82 34 S105 29 122 34 S144 20 161 28 S181 36 199 19 S224 31 244 26 S260 9 280 17 S303 34 322 21 S345 19 364 11 S389 21 420 5 L420 62 L0 62Z" fill="url(#fade)"/><defs><linearGradient id="fade" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#078a67" stopOpacity=".14"/><stop offset="100%" stopColor="#078a67" stopOpacity="0"/></linearGradient></defs></svg></div></article>
         <article className="metric-card"><div className="metric-heading"><span>Invested</span><span className="metric-icon blue"><LayoutDashboard size={17}/></span></div><div className="metric-value">₹ 7,96,240<span>.00</span></div><div className="metric-foot"><span>Across 4 holdings</span><span className="muted">Cost basis</span></div></article>
@@ -38,7 +41,7 @@ export default async function Home() {
         </div>
         <aside className="panel order-panel" id="orders"><div className="panel-header"><div><h2>Quick order</h2><p>Place a simulated order</p></div><span className="paper-pill">PAPER</span></div><OrderPanel/><div className="order-note"><ShieldCheck size={14}/> No live orders can be placed from this preview.</div></aside>
       </section>
-      <section className="lower-grid"><article className="panel activity-panel"><div className="panel-header"><div><h2>Recent activity</h2><p>Your latest portfolio movements</p></div><a href="#orders">All activity →</a></div><div className="activity-row"><span className="activity-icon buy"><ArrowDownLeft size={16}/></span><div><strong>RELIANCE · Buy</strong><small>12 shares · Paper order complete</small></div><time>10:42 AM</time><b>₹ 35,069.40</b></div><div className="activity-row"><span className="activity-icon sell"><ArrowUpRight size={16}/></span><div><strong>INFY · Sell</strong><small>5 shares · Paper order complete</small></div><time>Yesterday</time><b>₹ 8,091.50</b></div></article><article className="panel funds-panel" id="funds"><div className="panel-header"><div><h2>Funds overview</h2><p>Paper trading account</p></div><Wallet size={18} color="#648075"/></div><div className="fund-row"><span>Available to trade</span><b>₹ 1,24,500.00</b></div><div className="fund-row"><span>Used margin</span><b>₹ 18,420.00</b></div><div className="fund-progress"><span/></div><small className="fund-caption">13% of simulated balance in use</small></article></section>
+        <section className="lower-grid"><article className="panel activity-panel"><div className="panel-header"><div><h2>Sample activity</h2><p>Illustrative paper-account entries</p></div><a href="#orders">Place paper order →</a></div><div className="activity-row"><span className="activity-icon buy"><ArrowDownLeft size={16}/></span><div><strong>RELIANCE · Buy</strong><small>12 shares · Simulated example</small></div><time>10:42 AM</time><b>₹ 35,069.40</b></div><div className="activity-row"><span className="activity-icon sell"><ArrowUpRight size={16}/></span><div><strong>INFY · Sell</strong><small>5 shares · Simulated example</small></div><time>Yesterday</time><b>₹ 8,091.50</b></div></article><article className="panel funds-panel" id="funds"><div className="panel-header"><div><h2>Funds overview</h2><p>Paper trading account</p></div><Wallet size={18} color="#648075"/></div><div className="fund-row"><span>Available to trade</span><b>₹ 1,24,500.00</b></div><div className="fund-row"><span>Used margin</span><b>₹ 18,420.00</b></div><div className="fund-progress"><span/></div><small className="fund-caption">13% of simulated balance in use</small></article></section>
       <footer className="app-footer"><span>Northstar demo · Market and account data are simulated</span><span id="connectors">Broker: <b>Not connected</b> <a href="/api/health">· API status</a></span></footer>
     </div>
   </main>;

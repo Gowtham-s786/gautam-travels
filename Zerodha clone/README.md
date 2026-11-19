@@ -8,6 +8,7 @@ This is a standalone starter inside the `Zerodha clone` folder. It is deliberate
 - Paper order API with validation and request-id deduplication within the running process.
 - Broker gateway interface and a Kite Connect integration boundary. Live order and account operations intentionally fail closed until a broker relationship, per-customer authorization/session flow, compliance controls, and production review are completed.
 - Quote and health endpoints.
+- Supabase email/password account creation and sign-in, a protected account workspace, and authenticated, RLS-scoped watchlist APIs.
 - Supabase server client configuration and isolated migration for profile/watchlist preferences and security metadata. The schema intentionally does not make Supabase the authoritative ledger, balances, positions, or order book.
 
 ## Run locally
@@ -15,14 +16,14 @@ This is a standalone starter inside the `Zerodha clone` folder. It is deliberate
 1. Install Node.js 20 or later.
 2. In this folder, copy `.env.example` to `.env.local`.
 3. Leave `BROKER_MODE=paper` and `LIVE_TRADING_ENABLED=false`.
-4. `npm install`
-5. `npm run dev`
+4. `pnpm install --ignore-scripts`
+5. `pnpm dev`
 
 The UI is available at `http://localhost:3000`; `/api/health`, `/api/quotes`, and `/api/orders` are included.
 
 ## Supabase setup
 
-The Supabase account currently connected in the workspace contains the Gautam Travels app tables. **Do not apply this migration to that existing project.** Create a separate Supabase project, set its URL and publishable key in `.env.local`, and apply `supabase/migrations/202611190001_init_brokerage_app.sql` there. Do not put a Supabase secret/service-role key in browser-exposed variables. RLS is enabled on user-facing tables; audit events are not exposed to client roles.
+The Supabase account currently connected in the workspace contains the Gautam Travels app tables. **Do not apply this migration to that existing project.** Create a separate Supabase project, set its URL and publishable key in `.env.local`, configure its Auth site URL and allowed redirect URLs for `/api/auth/callback`, and apply `supabase/migrations/202611190001_init_brokerage_app.sql` there. Do not put a Supabase secret/service-role key in browser-exposed variables. RLS is enabled on user-facing tables; audit events are not exposed to client roles.
 
 ## Broker connection prerequisites
 

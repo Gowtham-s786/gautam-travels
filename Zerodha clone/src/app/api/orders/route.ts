@@ -15,9 +15,11 @@ export async function POST(request: NextRequest) {
   const raw = await request.json().catch(() => null);
   const parsed = orderSchema.safeParse(raw);
   if (!parsed.success) return NextResponse.json({ error: "Invalid order input", details: parsed.error.flatten() }, { status: 400 });
-  const requestId = request.headers.get("x-idempotency-key") || crypto.randomUUID();
+  const providedRequestId = request.headers.get("x-idempotency-key");
+  const requestId = providedRequestId ? z.string().uuid().safeParse(providedRequestId) : null;
+  if (providedRequestId && !requestId?.success) return NextResponse.json({ error: "Idempotency key must be a UUID." }, { status: 400 });
   try {
-    const order = await getBroker().placeOrder({ ...parsed.data, product: "CNC", orderType: "MARKET", clientRequestId: requestId });
+    const order = await getBroker().placeOrder({ ...parsed.data, product: "CNC", orderType: "MARKET", clientRequestId: requestId?.success ? requestId.data : crypto.randomUUID() });
     return NextResponse.json({ mode: getBroker().mode, order }, { status: 201, headers: { "cache-control": "no-store" } });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : "Order service unavailable" }, { status: 503 });
